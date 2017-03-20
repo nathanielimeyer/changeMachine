@@ -1,3 +1,6 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ChangeMachine {
   private int mQuarters;
   private int mDimes;
@@ -75,6 +78,11 @@ public class ChangeMachine {
     int nickelChangeTotal = makeNickelChange(updatedCashTotal);
     updatedCashTotal -= (nickelChangeTotal * 0.05f);
     int pennyChangeTotal = makePennyChange(updatedCashTotal);
+    System.out.println(totalCash);
+    System.out.println(BigDecimal.valueOf(quarterChangeTotal * 0.25d + dimeChangeTotal * .10d + nickelChangeTotal * .05d +  pennyChangeTotal * .01d).setScale(3, RoundingMode.HALF_UP).doubleValue());
+      if ( BigDecimal.valueOf(quarterChangeTotal * 0.25d + dimeChangeTotal * .10d + nickelChangeTotal * .05d +  pennyChangeTotal * .01d).setScale(3, RoundingMode.HALF_EVEN).doubleValue() < totalCash ) {
+        return String.format("Sorry we don't have enough change");
+      }
     return String.format("Quarters: %d, Dimes: %d, Nickels: %d, Pennies: %d", quarterChangeTotal, dimeChangeTotal, nickelChangeTotal, pennyChangeTotal);
   }
 
